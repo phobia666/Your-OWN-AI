@@ -29,21 +29,24 @@ class OllamaService {
   }
 
   async embed(text) {
-    try {
-      const response = await axios.post(
-        `${this.ollamaUrl}/api/embed`,
-        { model: this.embeddingModel, input: text },
-        { timeout: 30000 }
-      );
-      if (!response.data.embeddings || response.data.embeddings.length === 0) {
-        throw new Error('No embeddings returned from Ollama');
+  try {
+    const response = await axios.post(
+      'https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2',
+      { inputs: text },
+      {
+        headers: {
+          'Authorization': `Bearer ${process.env.HF_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        timeout: 30000
       }
-      return response.data.embeddings[0];
-    } catch (err) {
-      console.error('Embedding error:', err.message);
-      throw new Error(`Failed to get embeddings: ${err.message}`);
-    }
+    );
+    return response.data;
+  } catch (err) {
+    console.error('Embedding error:', err.message);
+    throw new Error(`Failed to get embeddings: ${err.message}`);
   }
+}
 
   async generate(question, context, model = 'llama-3.3-70b-versatile') {
     try {
