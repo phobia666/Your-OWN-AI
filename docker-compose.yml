@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-service
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - vectordb-network
+
+  vectordb:
+    build: .
+    container_name: vectordb-app
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - OLLAMA_URL=http://ollama:11434
+      - NODE_ENV=production
+    depends_on:
+      - ollama
+    networks:
+      - vectordb-network
+    restart: unless-stopped
+
+volumes:
+  ollama-data:
+
+networks:
+  vectordb-network:
+    driver: bridge
