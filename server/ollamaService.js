@@ -30,18 +30,10 @@ class OllamaService {
 
   async embed(text) {
   try {
-    const response = await axios.post(
-      'https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2',
-      { inputs: text },
-      {
-        headers: {
-          'Authorization': `Bearer ${process.env.HF_API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        timeout: 30000
-      }
-    );
-    return response.data;
+    const { pipeline } = await import('@xenova/transformers');
+    const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+    const output = await extractor(text, { pooling: 'mean', normalize: true });
+    return Array.from(output.data);
   } catch (err) {
     console.error('Embedding error:', err.message);
     throw new Error(`Failed to get embeddings: ${err.message}`);

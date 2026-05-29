@@ -13,6 +13,7 @@
     "install-all": "npm install && cd client && npm install && cd .."
   },
   "dependencies": {
+    "@xenova/transformers": "^2.0.1",
     "axios": "^1.6.0",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
