@@ -4,7 +4,7 @@ export default function Header({ ollamaStatus, stats }) {
   return (
     <header>
       <div>
-        <h1>⚡ VectorDB</h1>
+        <h1>Phobia's VectorDB Hub</h1>
         <p style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>
           Vector Database with HNSW + RAG
         </p>
