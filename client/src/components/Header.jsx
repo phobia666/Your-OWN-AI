@@ -10,12 +10,10 @@ export default function Header({ ollamaStatus, stats }) {
         </p>
       </div>
       
-      <div className="header-badges">
-        <div className="badge">
-          Ollama: <span className={ollamaStatus === 'connected' ? 'ok' : 'err'}>
-            {ollamaStatus === 'connected' ? '✓ Connected' : '✗ Disconnected'}
-          </span>
-        </div>
+     <div className="header-badges">
+  <div className="badge">
+    AI Service: <span className="ok">✓ Connected</span>
+  </div>
         
         {stats && (
           <>
