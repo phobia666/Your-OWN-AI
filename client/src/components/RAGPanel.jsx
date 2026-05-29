@@ -4,7 +4,8 @@ import './RAGPanel.css'
 export default function RAGPanel({ onRAG, loading }) {
   const [question, setQuestion] = useState('')
   const [k, setK] = useState(3)
-  const [model, setModel] = useState('llama2')
+  const [model, setModel] = useState('llama-3.3-70b-versatile')
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -50,7 +51,7 @@ export default function RAGPanel({ onRAG, loading }) {
               onChange={(e) => setModel(e.target.value)}
               disabled={loading}
             >
-              <option value="llama2">Llama 2</option>
+              <option value="llama-3.3-70b-versatile">Llama 3.3 70B (Groq)</option>
               <option value="neural-chat">Neural Chat</option>
               <option value="mistral">Mistral</option>
             </select>
